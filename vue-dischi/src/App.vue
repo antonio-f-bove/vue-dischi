@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <the-header />
-    <the-main :albums="discoteca"/>
+    <loader-dots v-if="discoteca.length !== 10"/>
+    <the-main v-else :albums="discoteca"/>
   </div>
 </template>
 
@@ -9,12 +10,14 @@
 import axios from 'axios'
 import TheHeader from './components/TheHeader.vue'
 import TheMain from './components/TheMain.vue'
+import LoaderDots from './components/LoaderDots.vue'
 
 export default {
   name: "App",
   components: {
     TheMain,
-    TheHeader
+    TheHeader,
+    LoaderDots
   },
   data() {
     return {
