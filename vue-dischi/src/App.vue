@@ -1,18 +1,20 @@
 <template>
   <div id="app">
+    <the-header />
     <the-main :albums="discoteca"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-
+import TheHeader from './components/TheHeader.vue'
 import TheMain from './components/TheMain.vue'
 
 export default {
   name: "App",
   components: {
-    TheMain
+    TheMain,
+    TheHeader
   },
   data() {
     return {

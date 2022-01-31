@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="container">
+    <div class="container-custom">
       <div class="row row-cols-5">
         <card-box v-for="(album, index) in albums" 
         :key="index" 
@@ -30,5 +30,10 @@ export default {
 
 main {
   background-color: $dark-blue;
+
+  .container-custom {
+    width: 1000px;
+    margin: 0 auto;
+  }
 }
 </style>
