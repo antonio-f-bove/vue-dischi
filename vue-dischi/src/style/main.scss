@@ -1,1 +1,7 @@
 @import '~bootstrap/scss/bootstrap.scss';
+@import './variables.scss';
+
+#app {
+  background-color: $dark-blue;
+  height: 100vh;
+}

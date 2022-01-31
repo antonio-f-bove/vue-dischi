@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <the-main />
+    <the-main :albums="discoteca"/>
   </div>
 </template>
 
@@ -30,5 +30,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import './style/main.scss'
+@import './style/main.scss';
 </style>
