@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <the-header />
-    <select-genres :genres="genresList" v-model="selectedGenre"/>
+    <select-genres :genres="genresList" @select="filterAlbums"/>
     <loader-dots v-if="discoteca.length !== 10" />
-    <the-main v-else :albums="discoteca" />
+    <the-main v-else :albums="discotecaFiltered" />
   </div>
 </template>
 
@@ -28,7 +28,6 @@ export default {
       discoteca: [],
       // lista filtrata con la select, che verrà effettivamente stampata
       discotecaFiltered: [],
-      selectedGenre: 'All genres',
       genresList: [],
     };
   },
@@ -43,7 +42,7 @@ export default {
   },
   methods: {
     getGenresList(discsArray) {
-      let genres = ["All genres"];
+      const genres = ["All genres"];
 
       discsArray.forEach((disc) => {
         if (!genres.includes(disc.genre)) {
@@ -53,6 +52,11 @@ export default {
 
       return genres;
     },
+    filterAlbums (option) {
+      this.discotecaFiltered = this.discoteca.filter((album) => {
+        return album.genre === option || option === 'All genres'
+      })
+    }
   },
 };
 </script>

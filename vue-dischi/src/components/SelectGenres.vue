@@ -1,5 +1,5 @@
 <template>
-  <select @change="$emit('change', $event.target.value)"
+  <select v-model="selectedGenre" @change="$emit('select', selectedGenre)"
   >
     <option v-for="genre in genres" :key="genre" :value="genre">
       {{ genre }}
@@ -11,10 +11,10 @@
 export default {
   props: {
     genres: Array,
-    genre: String,
   },
   data() {
     return {
+      selectedGenre: 'All genres',
     }
   }
 };
