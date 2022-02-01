@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <the-header />
-    <select-genres :genres="genresList" @select="filterAlbums"/>
+    <select-genre :genres="genresList" @select="filterAlbums"/>
+    <select-artist :artists="artistsList" @select="filterAlbums" />
     <loader-dots v-if="discoteca.length !== 10" />
     <the-main v-else :albums="discotecaFiltered" />
   </div>
@@ -12,7 +13,8 @@ import axios from "axios";
 import TheHeader from "./components/TheHeader.vue";
 import TheMain from "./components/TheMain.vue";
 import LoaderDots from "./components/LoaderDots.vue";
-import SelectGenres from "./components/SelectGenres.vue";
+import SelectGenre from "./components/SelectGenre.vue";
+import SelectArtist from './components/SelectArtist.vue';
 
 export default {
   name: "App",
@@ -20,7 +22,8 @@ export default {
     TheMain,
     TheHeader,
     LoaderDots,
-    SelectGenres,
+    SelectGenre,
+    SelectArtist,
   },
   data() {
     return {
@@ -29,6 +32,7 @@ export default {
       // lista filtrata con la select, che verrà effettivamente stampata
       discotecaFiltered: [],
       genresList: [],
+      artistsList: [],
     };
   },
   mounted() {
@@ -38,6 +42,7 @@ export default {
         this.discoteca = result.data.response;
         this.discotecaFiltered = this.discoteca;
         this.genresList = this.getGenresList(this.discoteca);
+        this.artistsList = this.getArtistsList(this.discoteca);
       });
   },
   methods: {
@@ -52,10 +57,29 @@ export default {
 
       return genres;
     },
-    filterAlbums (option) {
-      this.discotecaFiltered = this.discoteca.filter((album) => {
-        return album.genre === option || option === 'All genres'
-      })
+    getArtistsList(discsArray) {
+      const artists = ["All artists"];
+
+      discsArray.forEach((disc) => {
+        if (!artists.includes(disc.author)) {
+          artists.push(disc.author);
+        }
+      });
+
+      return artists;
+    },
+    filterAlbums (option, filter) {
+      if (filter === 'genre') {
+        this.discotecaFiltered = this.discoteca.filter((album) => {
+          return album.genre === option || option === 'All genres'
+        })
+      }
+
+      if (filter === 'artist') {
+        this.discotecaFiltered = this.discoteca.filter((album) => {
+          return album.author === option || option === 'All artists'
+        })
+      }
     }
   },
 };

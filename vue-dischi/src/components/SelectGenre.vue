@@ -1,5 +1,5 @@
 <template>
-  <select v-model="selectedGenre" @change="$emit('select', selectedGenre)"
+  <select v-model="selectedGenre" @change="$emit('select', selectedGenre, 'genre')"
   >
     <option v-for="genre in genres" :key="genre" :value="genre">
       {{ genre }}
